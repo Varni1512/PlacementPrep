@@ -64,13 +64,13 @@ function App() {
                   </p>
                   <div className="flex justify-center md:justify-start space-x-4 mt-4">
                     <a href="http://www.linkedin.com/in/varnikumarpatel" target="_blank" rel="noopener noreferrer">
-                      <Linkedin className="text-gray-700 dark:text-gray-300 dark:hover:text-blue-400 cursor-pointer w-6 h-6" />
+                      <Linkedin className="text-gray-700 dark:text-gray-300 dark:hover:text-blue-400 hover:text-blue-400 cursor-pointer w-6 h-6" />
                     </a>
                     <a href="https://github.com/Varni1512" target="_blank" rel="noopener noreferrer">
-                      <Github className="text-gray-700 dark:text-gray-300 dark:hover:text-blue-400 cursor-pointer w-6 h-6" />
+                      <Github className="text-gray-700 dark:text-gray-300 dark:hover:text-black hover:text-black cursor-pointer w-6 h-6" />
                     </a>
                     <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                      <Instagram className="text-gray-700 dark:text-gray-300 dark:hover:text-blue-400 cursor-pointer w-6 h-6" />
+                      <Instagram className="text-gray-700 dark:text-gray-300 dark:hover:text-pink-400 hover:text-pink-600 cursor-pointer w-6 h-6" />
                     </a>
                   </div>
                 </div>
@@ -82,10 +82,8 @@ function App() {
                     <ul className="space-y-1 text-gray-700 dark:text-gray-300">
                       <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>About Us</li>
                       <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>Contact Us</li>
-                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>Pricing</li>
                       <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>Privacy Policy</li>
                       <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>Terms and Conditions</li>
-                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>Cancellation / Refund Policy</li>
                     </ul>
                   </div>
                   <div>
@@ -100,19 +98,19 @@ function App() {
                   <div>
                     <h4 className="font-semibold text-blue-600 dark:text-blue-400">DSA Sheets</h4>
                     <ul className="space-y-1 text-gray-700 dark:text-gray-300">
-                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>Striver's SDE Sheet</li>
-                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>Love Babbar DSA Playlist</li>
-                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>SDE Core Sheet</li>
-                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>Cheatsheets</li>
+                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'><a href='https://takeuforward.org/interviews/strivers-sde-sheet-top-coding-interview-problems/'>Striver's SDE Sheet</a></li>
+                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'><a href='https://drive.google.com/file/d/1FMdN_OCfOI0iAeDlqswCiC2DZzD4nPsb/view'>Love Babbar DSA Sheet</a></li>
+                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'><a href='http://takeuforward.org/interviews/must-do-questions-for-dbms-cn-os-interviews-sde-core-sheet/'>SDE Core Sheet</a></li>
+                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'><a href='https://www.geeksforgeeks.org/courses/dsa-self-paced'>GFG DSA Self-Paced Sheet</a></li>
                     </ul>
                   </div>
                   <div>
                     <h4 className="font-semibold text-blue-600 dark:text-blue-400">DSA Playlist</h4>
                     <ul className="space-y-1 text-gray-700 dark:text-gray-300">
-                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>Love Babbar</li>
-                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>Striver</li>
-                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>Kunal Kushwaha</li>
-                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'>Code with Harry</li>
+                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'><a href='https://youtube.com/@codehelp?si=zCf6o66arPWeuIBN'>Love Babbar</a></li>
+                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'><a href='https://youtube.com/@takeuforward?si=pfnFiW9LSlUuWUn4'>Raj Vikramaditya (Striver)</a></li>
+                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'><a href='https://youtube.com/@kunalkushwaha?si=P5gHJU2b4rsFMHfK'>Kunal Kushwaha</a></li>
+                      <li className='hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'><a href='https://youtube.com/@codewithharry?si=XClqjrDIZhrsZwiC'>Code with Harry</a></li>
                     </ul>
                   </div>
                 </div>
