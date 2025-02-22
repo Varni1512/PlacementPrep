@@ -21,7 +21,6 @@ const navLinks = [
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignup, setIsSignup] = useState(false);
@@ -69,45 +68,14 @@ export default function Navbar() {
       <div className="max-w-10xl mx-auto px-4">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-              PlacementPrep
-            </Link>
+            <Link to="/" className="text-2xl font-bold text-blue-600 dark:text-blue-400">PlacementPrep</Link>
           </div>
-          {/* Desktop View */}
           <div className="hidden md:flex items-center space-x-4">
             {user && navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className="text-gray-700 text-xl dark:text-gray-300 hover:text-blue-600 hover:dark:text-blue-600"
-              >
+              <Link key={link.path} to={link.path} className="text-gray-700 text-xl dark:text-gray-300 hover:text-blue-600 hover:dark:text-blue-600">
                 {link.label}
               </Link>
             ))}
-            <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
-            >
-              {darkMode ? <Sun /> : <Moon />}
-            </button>
-            {user ? (
-              <button
-                onClick={handleLogout}
-                className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
-              >
-                Logout
-              </button>
-            ) : (
-              <button
-                onClick={toggleLogin}
-                className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
-              >
-                Login
-              </button>
-            )}
-          </div>
-          {/* Mobile View Header */}
-          <div className="md:hidden flex items-center space-x-2">
             <button
               onClick={toggleDarkMode}
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
@@ -115,45 +83,37 @@ export default function Navbar() {
             >
               {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
-            <button
-              onClick={toggleMenu}
+            {user ? (
+              <button onClick={handleLogout} className="bg-red-600 text-white px-4 py-2 rounded-lg">Logout</button>
+            ) : (
+              <button onClick={toggleLogin} className="bg-red-600 text-white px-4 py-2 rounded-lg">Login</button>
+            )}
+          </div>
+          <div className="md:hidden flex items-center space-x-2">
+          <button
+              onClick={toggleDarkMode}
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
+              aria-label="Toggle dark mode"
             >
+              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+            <button onClick={toggleMenu} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
-        {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden pb-4 space-y-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsMenuOpen(false)}
-                className={`block px-3 py-2 rounded-md text-base font-medium ${
-                  location.pathname === link.path
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                }`}
-              >
+            {/* <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600">Home</Link> */}
+            {user && navLinks.map((link) => (
+              <Link key={link.path} to={link.path} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:dark:text-blue-600">
                 {link.label}
               </Link>
             ))}
             {user ? (
-              <button
-                onClick={handleLogout}
-                className="block bg-red-600 text-white px-4 py-2 rounded-lg"
-              >
-                Logout
-              </button>
+              <button onClick={handleLogout} className="block bg-red-600 text-white px-4 py-2 rounded-lg w-full">Logout</button>
             ) : (
-              <button
-                onClick={toggleLogin}
-                className="block bg-red-600 text-white px-4 py-2 rounded-lg"
-              >
-                Login
-              </button>
+              <button onClick={toggleLogin} className="block bg-red-600 text-white px-4 py-2 rounded-lg w-full">Login</button>
             )}
           </div>
         )}
@@ -164,16 +124,11 @@ export default function Navbar() {
             <button onClick={toggleLogin} className="absolute top-3 right-3 text-gray-600">×</button>
             <h2 className="text-2xl font-bold text-center mb-4">{isSignup ? 'Sign Up' : 'Login'}</h2>
             <form onSubmit={handleAuth}>
-              {isSignup && (
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} required placeholder="Name" className="w-full px-3 py-2 border rounded-lg mb-2" />
-              )}
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="Email" className="w-full px-3 py-2 border rounded-lg mb-2" />
               <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Password" className="w-full px-3 py-2 border rounded-lg mb-2" />
               <button type="submit" className="w-full bg-red-600 text-white py-2 rounded-lg">{isSignup ? 'Sign Up' : 'Login'}</button>
             </form>
-            <button onClick={toggleSignup} className="text-red-600 mt-4 block text-center">
-              {isSignup ? 'Already have an account? Login' : 'No account? Sign up'}
-            </button>
+            <button onClick={toggleSignup} className="text-red-600 mt-4 block text-center">{isSignup ? 'Already have an account? Login' : 'No account? Sign up'}</button>
           </div>
         </div>
       )}
