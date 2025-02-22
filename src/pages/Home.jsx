@@ -288,7 +288,7 @@ export default function Home() {
           <div className="md:w-1/2 flex justify-center mt-6 md:mt-0">
             {/* Make sure this image path is correct in your project setup */}
             <img
-              src="src/pages/varni.jpg"
+              src="/varni.jpg"
               alt="Founder"
               className="w-64 h-64 object-cover rounded-xl shadow-md"
             />
