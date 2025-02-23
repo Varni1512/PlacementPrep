@@ -2,71 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Book, MessageSquare, Code, FileText, Map, BarChart, Briefcase } from 'lucide-react';
 import CountUp from 'react-countup';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-
-// Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } }
-};
-
-// Animated components
-const AnimatedFeature = ({ feature, index }) => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      variants={fadeInUp}
-    >
-      <Link to="#" className="block transition-transform transform hover:scale-105">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-2xl transition-shadow duration-300 border-2 border-transparent hover:border-blue-600">
-          <div className="flex justify-center mb-4 text-blue-500 dark:text-blue-400">
-            {feature.icon}
-          </div>
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 text-center">
-            {feature.title}
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300 text-center">
-            {feature.description}
-          </p>
-        </div>
-      </Link>
-    </motion.div>
-  );
-};
-
-const AnimatedStat = ({ value, label, duration = 2, color = "text-2xl font-bold" }) => {
-  const [ref, inView] = useInView({ triggerOnce: true });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={inView ? { opacity: 1, scale: 1 } : {}}
-      transition={{ duration: 0.5 }}
-      className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transition-transform transform hover:scale-105 border-2 border-transparent hover:border-blue-600"
-    >
-      <h3 className={`${color}`}>
-        {inView ? (
-          <CountUp start={0} end={value} duration={duration} separator="," />
-        ) : (
-          0
-        )}
-        +
-      </h3>
-      <p className="mt-4 text-xl">{label}</p>
-    </motion.div>
-  );
-};
 
 const features = [
   {
@@ -105,6 +40,7 @@ const features = [
     description: 'Curated list of top internship opportunities with application links',
   },
 ];
+
 const faqs = [
   {
     question: "What does Placement Prep offer?",
@@ -154,9 +90,10 @@ const faqs = [
 ];
 
 export default function Home() {
+  // State for FAQ expand/collapse
   const [openFAQIndex, setOpenFAQIndex] = useState(null);
+  // State for the "Get in Touch" modal
   const [modalOpen, setModalOpen] = useState(false);
-  const [founderRef, founderInView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   const toggleFAQ = (index) => {
     setOpenFAQIndex(openFAQIndex === index ? null : index);
@@ -165,83 +102,62 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <motion.header
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white py-20"
-      >
+      <header className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white py-20">
         <div className="max-w-7xl mx-auto px-4 text-center pt-12">
-          <motion.h1
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-5xl font-bold mb-4"
-          >
+          <h1 className="text-5xl font-bold mb-4">
             Gear Up for{' '}
             <span className="text-5xl font-bold text-red-600">Success:</span> Your Ultimate
             Preparation Hub!
-          </motion.h1>
-          <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-xl mb-8"
-          >
-            Comprehensive resources, dynamic site sections, and real-time user insights—all in one place.
-          </motion.p>
+          </h1>
+          <p className="text-xl mb-8">
+            Comprehensive resources, dynamic site sections, and real-time user insights—all in one
+            place.
+          </p>
         </div>
-      </motion.header>
+      </header>
 
       {/* Features Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+          <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white">Our Features</h2>
             <p className="text-lg text-gray-600 dark:text-gray-300">
               Discover our diverse site sections and interactive tools.
             </p>
-          </motion.div>
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <AnimatedFeature key={index} feature={feature} index={index} />
+              <Link
+                key={index}
+                to="#"
+                className="block transition-transform transform hover:scale-105"
+              >
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-2xl transition-shadow duration-300 border-2 border-transparent hover:border-blue-600">
+                  <div className="flex justify-center mb-4 text-blue-500 dark:text-blue-400">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 text-center">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-center">
+                    {feature.description}
+                  </p>
+                </div>
+              </Link>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
+      {/* Why Our Site? Section */}
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl text-black dark:text-white font-bold text-center mb-6">
-            Why choose us?
-          </h2>
-          <p className="text-center text-gray-400 mb-12">
-            Unlock Your Potential with Our Comprehensive Learning Approach
-          </p>
-        </motion.div>
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        <h2 className="text-4xl text-black dark:text-white font-bold text-center mb-6">
+          Why choose us?
+        </h2>
+        <p className="text-center text-gray-400 mb-12">
+          Unlock Your Potential with Our Comprehensive Learning Approach
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
               id: '01',
@@ -274,55 +190,56 @@ export default function Home() {
               text: 'With structured learning, expert resources, and real-world practice, we help you ace placements with confidence!',
             },
           ].map((item) => (
-            <motion.div
+            <div
               key={item.id}
-              variants={fadeInUp}
               className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transition-transform transform hover:scale-105 border-2 border-transparent hover:border-blue-600"
             >
               <h3 className="text-blue-600 text-xl font-semibold mb-2">{item.id}</h3>
               <h4 className="text-xl dark:text-white font-semibold mb-2">{item.title}</h4>
               <p className="text-gray-400">{item.text}</p>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
-      {/* Statistics Section */}
+      {/* Site Statistics Section */}
       <section className="py-16 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
+          {/* Connect with Community Boxes */}
+          <div className="text-center mt-12">
             <h2 className="text-3xl font-bold mb-6">Connect with our community</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 cursor-pointer">
-              <AnimatedStat value={100} label="Active Users" />
-              <AnimatedStat value={50} label="Happy Clients" />
-              <AnimatedStat
-                value={1000}
-                label="Instagram"
-                color="text-2xl font-bold text-pink-600"
-              />
-              <AnimatedStat
-                value={500}
-                label="LinkedIn"
-                color="text-2xl font-bold text-blue-600"
-              />
+              <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transition-transform transform hover:scale-105 border-2 border-transparent hover:border-blue-600">
+              <h3 className="text-2xl font-bold">
+                <CountUp start={0} end={100} duration={2} separator="," />+
+              </h3>
+              <p className="mt-4 text-xl">Active Users</p>
+              </div>
+              <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transition-transform transform hover:scale-105 border-2 border-transparent hover:border-blue-600">
+              <h3 className="text-2xl font-bold">
+                <CountUp start={0} end={50} duration={2} separator="," />+
+              </h3>
+              <p className="mt-4 text-xl">Happy Clients</p>
+              </div>
+              <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transition-transform transform hover:scale-105 border-2 border-transparent hover:border-blue-600">
+                <h3 className="text-2xl font-bold text-pink-600">
+                  <CountUp start={0} end={1000} duration={2} separator="," />+
+                </h3>
+                <p className="mt-4 text-xl text-gray-900 dark:text-white">Instagram</p>
+              </div>
+              <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transition-transform transform hover:scale-105 border-2 border-transparent hover:border-blue-600">
+                <h3 className="text-2xl font-bold text-blue-600">
+                  <CountUp start={0} end={500} duration={2} separator="," />+
+                </h3>
+                <p className="mt-4 text-xl text-gray-900 dark:text-white">LinkedIn</p>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Founder Section */}
-      <motion.section
-        ref={founderRef}
-        initial={{ opacity: 0, x: -50 }}
-        animate={founderInView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.8 }}
-        className="py-16"
-      >
+      {/* Meet Our Founder Section */}
+      <section className="py-16">
         <h2 className="text-4xl text-black dark:text-white font-bold text-center mb-6">
           Meet Our Founder
         </h2>
@@ -377,56 +294,37 @@ export default function Home() {
             />
           </div>
         </div>
-      </motion.section>
+      </section>
 
-      {/* FAQ Section */}
+      {/* Frequently Asked Questions Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-8"
-          >
+          <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-8">
             Frequently Asked Questions
-          </motion.h2>
-          {faqs.map((faq, index) => {
-            const [ref, inView] = useInView({ triggerOnce: true });
-            return (
-              <motion.div
-                key={index}
-                ref={ref}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                className="border-b border-gray-200 dark:border-gray-700 py-4"
+          </h2>
+          {faqs.map((faq, index) => (
+            <div key={index} className="border-b border-gray-200 dark:border-gray-700 py-4">
+              <button
+                onClick={() => toggleFAQ(index)}
+                className="w-full flex justify-between items-center text-left"
               >
-                <button
-                  onClick={() => toggleFAQ(index)}
-                  className="w-full flex justify-between items-center text-left"
-                >
-                  <span className="text-lg font-medium text-gray-900 dark:text-white">
-                    {faq.question}
-                  </span>
-                  <span className="ml-2 text-gray-500 dark:text-gray-400">
-                    {openFAQIndex === index ? '-' : '+'}
-                  </span>
-                </button>
-                {openFAQIndex === index && (
-                  <div className="mt-2 text-gray-600 dark:text-gray-300">{faq.answer}</div>
-                )}
-              </motion.div>
-            );
-          })}
+                <span className="text-lg font-medium text-gray-900 dark:text-white">
+                  {faq.question}
+                </span>
+                <span className="ml-2 text-gray-500 dark:text-gray-400">
+                  {openFAQIndex === index ? '-' : '+'}
+                </span>
+              </button>
+              {openFAQIndex === index && (
+                <div className="mt-2 text-gray-600 dark:text-gray-300">{faq.answer}</div>
+              )}
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Get in Touch Section */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="py-16 bg-gray-50 dark:bg-gray-900"
-      >
+      <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className=" max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
             Still have questions?
@@ -441,15 +339,11 @@ export default function Home() {
             Get in Touch
           </button>
         </div>
-      </motion.section>
+      </section>
 
-      {/* Modal */}
+      {/* Modal for "Get in Touch" */}
       {modalOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="fixed inset-0 flex items-center justify-center z-50"
-        >
+        <div className="fixed inset-0 flex items-center justify-center z-50">
           {/* Overlay */}
           <div
             className="absolute inset-0 bg-black opacity-50"
@@ -485,13 +379,13 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="text-gray-600 text-center dark:text-gray-300 hover:text-blue-500 transition duration-300  hover:dark:text-blue-600  hover:text-blue-600"
                 >
-                  Fill the Form
+                  Fill the Form 
                 </a>
               </p>
               <p className="text-gray-600 dark:text-gray-300">We will get back to you soon.</p>
             </div>
           </div>
-        </motion.div>
+        </div>
       )}
     </div>
   );
